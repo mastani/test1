@@ -1,15 +1,9 @@
 package com.test
 
-import android.app.Application
-import android.content.Context
-import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MainApplication : Application() {
+class MainApplication : MultiDexApplication() {
     private val TAG = MainApplication::class.java.name
-
-    override fun attachBaseContext(base: Context?) {
-        MultiDex.install(this)
-    }
 }

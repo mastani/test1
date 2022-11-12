@@ -60,6 +60,15 @@ class NetworkModule {
             client.addNetworkInterceptor(interceptor)
 
         client.addInterceptor { chain ->
+            var request = chain.request()
+            val url = request.url.newBuilder()
+                .addQueryParameter("apikey", BuildConfig.MOVIES_API_KEY)
+                .build()
+            request = request.newBuilder().url(url).build();
+            chain.proceed(request)
+        }
+
+        client.addInterceptor { chain ->
             val originalRequest = chain.request()
             val requestBuilder = originalRequest.newBuilder()
                 .headers(getJsonHeader())
